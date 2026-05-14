@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio - Tri Wicaksono Rusdiono</title>
+  <style>
+    /* Default = gelap (selaras beranda). .light-theme = terang — pakai key localStorage "theme-mode" yang sama dengan index.html */
+    :root {
+      --bg-fallback: #0c1222;
+      --text: #e2e8f0;
+      --muted: #b4c0d0;
+      --primary: #60a5fa;
+      --secondary: #22d3ee;
+      --heading: #dbeafe;
+      --card-heading: #93c5fd;
+      --line: rgba(148, 163, 184, 0.38);
+      --link: #7dd3fc;
+      --link-hover: #bae6fd;
+      --panel-bg: rgba(15, 23, 42, 0.82);
+      --panel-border: rgba(100, 116, 139, 0.42);
+      --panel-shadow: 0 18px 48px rgba(0, 0, 0, 0.45), 0 6px 18px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.06);
+      --header-bg: rgba(15, 23, 42, 0.88);
+      --footer-bg: rgba(15, 23, 42, 0.82);
+      --menu-hover-bg: rgba(30, 41, 59, 0.75);
+      --cert-preview-bg: rgba(15, 23, 42, 0.55);
+      --cert-preview-border: rgba(148, 163, 184, 0.35);
+      --btn-soft-bg: rgba(30, 41, 59, 0.72);
+      --btn-soft-border: rgba(103, 232, 249, 0.35);
+      --btn-soft-text: #67e8f9;
+      --surface-soft: rgba(30, 41, 59, 0.72);
+      --nav-active-text: #f8fafc;
+      --nav-active-bg: rgba(59, 130, 246, 0.55);
+      --nav-active-ring: rgba(125, 211, 252, 0.3);
+      --portfolio-scrim: linear-gradient(
+        160deg,
+        rgba(8, 15, 30, 0.28) 0%,
+        rgba(8, 15, 30, 0.38) 50%,
+        rgba(8, 15, 30, 0.32) 100%
+      );
+    }
+
+    body.light-theme {
+      --bg-fallback: #e8edf5;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #1d4ed8;
+      --secondary: #0891b2;
+      --heading: #1e3a8a;
+      --card-heading: #1e40af;
+      --line: rgba(71, 85, 105, 0.32);
+      --link: #0369a1;
+      --link-hover: #0c4a6e;
+      --panel-bg: rgba(255, 255, 255, 0.88);
+      --panel-border: rgba(255, 255, 255, 0.95);
+      --panel-shadow: 0 16px 42px rgba(15, 23, 42, 0.12), 0 4px 14px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(15, 23, 42, 0.05);
+      --header-bg: rgba(255, 255, 255, 0.9);
+      --footer-bg: rgba(255, 255, 255, 0.86);
+      --menu-hover-bg: rgba(239, 246, 255, 0.95);
+      --cert-preview-bg: rgba(241, 245, 249, 0.92);
+      --cert-preview-border: rgba(203, 213, 225, 0.95);
+      --btn-soft-bg: rgba(224, 242, 254, 0.95);
+      --btn-soft-border: rgba(14, 165, 233, 0.45);
+      --btn-soft-text: #0c4a6e;
+      --surface-soft: rgba(241, 245, 249, 0.9);
+      --nav-active-text: #ffffff;
+      --nav-active-bg: rgba(29, 78, 216, 0.8);
+      --nav-active-ring: rgba(59, 130, 246, 0.4);
+      --portfolio-scrim: linear-gradient(
+        165deg,
+        rgba(255, 255, 255, 0.14) 0%,
+        rgba(248, 250, 252, 0.22) 45%,
+        rgba(255, 255, 255, 0.18) 100%
+      );
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      position: relative;
+      color: var(--text);
+      line-height: 1.6;
+      background-color: var(--bg-fallback);
+    }
+
+    /* Gambar 1408×768: cover + center agar proporsi lebar terjaga di layar apapun */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image: url("background portofolio.png");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    /* Scrim tipis — gambar tetap dominan, teks & kartu tetap nyaman dibaca */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: var(--portfolio-scrim);
+    }
+
+    .container {
+      width: min(980px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--header-bg);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.22);
+    }
+
+    body.light-theme header {
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 0;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 700;
+      color: var(--primary);
+      animation: logoPulse 5.5s ease-in-out infinite;
+    }
+
+    .menu {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.92rem;
+      padding: 7px 11px;
+      border-radius: 10px;
+      transition: 0.25s ease;
+    }
+
+    .menu a:hover {
+      background: var(--surface-soft);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .menu a.active {
+      color: var(--nav-active-text);
+      background: var(--nav-active-bg);
+      box-shadow: inset 0 0 0 1px var(--nav-active-ring);
+    }
+
+    #sertifikat,
+    #proyek,
+    #link {
+      scroll-margin-top: 96px;
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 7px 11px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.06);
+    }
+
+    main {
+      padding: 30px 0;
+    }
+
+    @keyframes fadeRise {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes logoPulse {
+      0%,
+      100% {
+        filter: brightness(1);
+      }
+      50% {
+        filter: brightness(1.14);
+      }
+    }
+
+    .hero {
+      margin-bottom: 18px;
+      padding: 20px 18px;
+      border-radius: 14px;
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--panel-shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      animation: fadeRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.06s backwards;
+    }
+
+    /* Kotak mengambang + sorot mengikuti kursor (--mx / --my diatur dari JS) */
+    .float-panel {
+      --mx: 50%;
+      --my: 50%;
+      position: relative;
+      isolation: isolate;
+      transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        border-color 0.35s ease;
+    }
+
+    .float-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        380px circle at var(--mx) var(--my),
+        rgba(96, 165, 250, 0.26),
+        rgba(34, 211, 238, 0.1) 38%,
+        transparent 58%
+      );
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body.light-theme .float-panel::before {
+      background: radial-gradient(
+        360px circle at var(--mx) var(--my),
+        rgba(37, 99, 235, 0.14),
+        rgba(14, 165, 233, 0.07) 40%,
+        transparent 58%
+      );
+    }
+
+    .float-panel:hover::before {
+      opacity: 1;
+    }
+
+    .float-panel:hover {
+      transform: translateY(-8px) scale(1.008);
+      box-shadow:
+        0 28px 58px rgba(0, 0, 0, 0.42),
+        0 12px 30px rgba(0, 0, 0, 0.26),
+        0 0 0 1px rgba(96, 165, 250, 0.28);
+      border-color: rgba(96, 165, 250, 0.42);
+    }
+
+    body.light-theme .float-panel:hover {
+      box-shadow:
+        0 22px 50px rgba(15, 23, 42, 0.13),
+        0 8px 22px rgba(15, 23, 42, 0.09),
+        0 0 0 1px rgba(37, 99, 235, 0.18);
+      border-color: rgba(59, 130, 246, 0.32);
+    }
+
+    .float-panel > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .float-panel .cert-preview {
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+    }
+
+    .float-panel:hover .cert-preview {
+      transform: translateY(-2px);
+    }
+
+    .float-panel .cert-preview img {
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .float-panel:hover .cert-preview img {
+      transform: scale(1.025);
+    }
+
+    #sertifikat .card {
+      animation: fadeRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    }
+
+    #sertifikat .card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    #sertifikat .card:nth-child(2) {
+      animation-delay: 0.16s;
+    }
+    #sertifikat .card:nth-child(3) {
+      animation-delay: 0.22s;
+    }
+    #sertifikat .card:nth-child(4) {
+      animation-delay: 0.28s;
+    }
+
+    #proyek .card {
+      animation: fadeRise 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.32s backwards;
+    }
+
+    .project-section {
+      margin-top: 22px;
+    }
+
+    .project-section .section-block-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 14px;
+    }
+
+    .section-link {
+      margin-top: 14px;
+      animation: fadeRise 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.45s backwards;
+    }
+  .section-link h2 {
+    color: var(--heading);
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: var(--panel-shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .card h2 {
+      color: var(--card-heading);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .card a {
+      color: var(--link);
+      transition: color 0.2s ease;
+    }
+
+    .card a:hover {
+      color: var(--link-hover);
+    }
+
+    .card strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .list {
+      list-style: none;
+    }
+
+    .list li {
+      margin-bottom: 8px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--secondary);
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 9px;
+    }
+
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: filter 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-soft {
+      background: var(--btn-soft-bg);
+      border: 1px solid var(--btn-soft-border);
+      color: var(--btn-soft-text);
+    }
+
+    footer {
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      padding: 18px 16px 26px;
+      font-size: 0.9rem;
+      background: var(--footer-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-theme footer {
+      box-shadow: 0 -10px 32px rgba(15, 23, 42, 0.06);
+    }
+
+    .cert-preview {
+      margin-top: 14px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--cert-preview-border);
+      background: var(--cert-preview-bg);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 32px rgba(0, 0, 0, 0.35),
+        0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-theme .cert-preview {
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 10px 28px rgba(15, 23, 42, 0.1),
+        0 2px 8px rgba(15, 23, 42, 0.06);
+    }
+
+    .cert-preview img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .float-panel,
+      .float-panel::before,
+      .float-panel:hover,
+      .float-panel .cert-preview,
+      .float-panel .cert-preview img {
+        transition: none !important;
+      }
+      
+      .hero,
+      #sertifikat .card,
+      #proyek .card,
+      .section-link,
+      .logo {
+        animation: none !important;
+      }
+
+      .float-panel:hover {
+        transform: none;
+      }
+
+      .float-panel:hover .cert-preview,
+      .float-panel:hover .cert-preview img {
+        transform: none;
+      }
+
+      .float-panel::before,
+      .float-panel:hover::before {
+        opacity: 0 !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      /* Tetap fixed agar gambar 1408×768 tetap menutup viewport saat scroll */
+      body::before,
+      body::after {
+        -webkit-transform: translateZ(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Portofolio Tri Wicaksono Rusdiono</div>
+        <div class="menu">
+          <a href="index.html">Home</a>
+          <a href="#sertifikat">Sertifikat</a>
+          <a href="#proyek">Proyek</a>
+          <a href="#link">Link</a>
+          <button class="theme-toggle" id="themeToggle" type="button">🌙 Dark</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero float-panel">
+      <h1>👹 Portofolio 👹</h1>
+      <p>Halaman ini menunjukan sertifikat, proyek, tautan personal.</p>
+    </section>
+
+    <section class="grid" id="sertifikat">
+      <article class="card float-panel">
+        <h2>🏅 LIA TOEFL</h2>
+        <ul class="list">
+          <li><strong>Nama:</strong> LIA Online Test for EPTTM (LOT EPTTM) (TOEFL)</li>
+          <li><strong>Penyelenggara:</strong> Lembaga Bahasa LIA</li>
+          <li><strong>Tahun:</strong> January 24 2026</li>
+        </ul>
+        <div class="cert-preview">
+          <img
+            src="sisipan/Sertifikat LIA TOEFL.jpg"
+            alt="Sertifikat LIA TOEFL — LIA Online Test for EPTTM"
+            loading="lazy"
+          />
+        </div>
+      </article>
+
+      <article class="card float-panel">
+        <h2>🏅 Dekstop Application Training (DAT)</h2>
+        <ul class="list">
+          <li><strong>Nama:</strong> Dekstop Application Training (DAT)</li>
+          <li><strong>Penyelenggara:</strong> Tiga Serangkai University (TSU)</li>
+          <li><strong>Tahun:</strong> 24 February 2025</li>
+        </ul>
+        <div class="cert-preview">
+          <img
+            src="sisipan/DAT TSU.PNG"
+            alt="Sertifikat Desktop Application Training — Tiga Serangkai University"
+            loading="lazy"
+          />
+        </div>
+      </article>
+
+      <article class="card float-panel">
+        <h2>🏅 Introduction SQL</h2>
+        <ul class="list">
+          <li><strong>Nama:</strong> Introduction SQL</li>
+          <li><strong>Penyelenggara:</strong> sololearn</li>
+          <li><strong>Tahun:</strong> 08 November 2023</li>
+        </ul>
+        <div class="cert-preview">
+          <img
+            src="sisipan/Sertifikat Sololearn introduction SQL.jpg"
+            alt="Sertifikat SoloLearn — Introduction SQL"
+            loading="lazy"
+          />
+        </div>
+      </article>
+
+      <article class="card float-panel">
+        <h2>🏅 SQL Intermediete</h2>
+        <ul class="list">
+          <li><strong>Nama:</strong> SQL Intermediete</li>
+          <li><strong>Penyelenggara:</strong> sololearn</li>
+          <li><strong>Tahun:</strong> 11 January 2024</li>
+        </ul>
+        <div class="cert-preview">
+          <img
+            src="sisipan/Sertifikat Sololearn SQL Intermediete.jpg"
+            alt="Sertifikat SoloLearn — SQL Intermediate"
+            loading="lazy"
+          />
+        </div>
+    </section>
+
+    <section class="project-section" id="proyek">
+      <h2 class="section-block-title">🚧 Proyek</h2>
+      <div class="grid">
+        <article class="card float-panel">
+          <h2>Program PJBL</h2>
+          <ul class="list">
+            <li><strong>Program:</strong> Project Based Learning Fakultas Informatika STMIK Sinar Nusantara</li>
+            <li><strong>Penyelenggara:</strong> STMIK Sinar Nusantara</li>
+            <li><strong>Waktu:</strong> 29 Mei 2024</li>
+          </ul>
+          <div class="cert-preview">
+            <img
+              src="sisipan/SK PJBL SMP 9.jpg"
+              alt="Dokumentasi program Project Based Learning — STMIK Sinar Nusantara"
+              loading="lazy"
+            />
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="card section-link float-panel" id="link">
+      <h2>🔗 Link Tambahan</h2>
+      <p>Instagram: <a href="https://www.instagram.com/ranahpati?igsh=d2hvMXp5MXJ0Z2d3" target="_blank" rel="noopener noreferrer">@ranahpati</a></p>
+      <div class="actions">
+        <a class="btn btn-primary" href="sisipan/CV Tri Wicaksono Rusdiono.pdf">📄 Download CV</a>
+        <a class="btn btn-soft" href="index.html">⬅️ Kembali ke Home</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Portofolio Tri Wicaksono Rusdiono.
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("theme-mode");
+    if (savedTheme === "light") {
+      document.body.classList.add("light-theme");
+      themeToggle.textContent = "☀️ Light";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-theme");
+      const isLight = document.body.classList.contains("light-theme");
+      themeToggle.textContent = isLight ? "☀️ Light" : "🌙 Dark";
+      localStorage.setItem("theme-mode", isLight ? "light" : "dark");
+    });
+
+    const sectionIds = ["sertifikat", "proyek", "link"];
+    const navHashLinks = [...document.querySelectorAll('.menu a[href^="#"]')];
+
+    const updateActiveNav = () => {
+      let current = "";
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+        const top = section.offsetTop - 120;
+        if (window.scrollY >= top) current = id;
+      });
+
+      navHashLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+      });
+    };
+
+    window.addEventListener("scroll", updateActiveNav, { passive: true });
+    updateActiveNav();
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!reduceMotion.matches) {
+      document.querySelectorAll(".float-panel").forEach((panel) => {
+        panel.addEventListener("mousemove", (e) => {
+          const r = panel.getBoundingClientRect();
+          panel.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          panel.style.setProperty("--my", `${e.clientY - r.top}px`);
+        });
+        panel.addEventListener("mouseleave", () => {
+          panel.style.setProperty("--mx", "50%");
+          panel.style.setProperty("--my", "50%");
+        });
+      });
+    }
+  </script>
+</body>
+</html>

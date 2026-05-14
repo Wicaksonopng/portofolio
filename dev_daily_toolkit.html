@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dev Daily Toolkit</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e2e8f0;
+      --accent: #22d3ee;
+      --ok: #10b981;
+      --warn: #f59e0b;
+      --err: #ef4444;
+      --border: #1f2937;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(180deg, #020617 0%, #0b1120 100%);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 32px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      margin-top: 0;
+      color: var(--muted);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: color-mix(in srgb, var(--card) 92%, black);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    h2 { margin: 0 0 10px; font-size: 1.05rem; }
+    label {
+      display: block;
+      margin: 8px 0 6px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    textarea, input {
+      width: 100%;
+      border: 1px solid #334155;
+      background: #020617;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+    }
+    textarea { min-height: 124px; resize: vertical; }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    button {
+      border: 1px solid #334155;
+      background: #0b1222;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    button:hover { border-color: var(--accent); }
+    .result {
+      margin-top: 10px;
+      font-size: 0.87rem;
+      white-space: pre-wrap;
+      line-height: 1.4;
+    }
+    .ok { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .err { color: var(--err); }
+    .small {
+      color: var(--muted);
+      font-size: 0.83rem;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Dev Daily Toolkit</h1>
+    <p class="subtitle">Satu halaman untuk pekerjaan rutin informatika. Tidak ada todo list.</p>
+
+    <div class="grid">
+      <section class="card">
+        <h2>JSON Formatter & Validator</h2>
+        <label for="jsonInput">Input JSON</label>
+        <textarea id="jsonInput" placeholder='{"name":"cursor","level":"pro"}'></textarea>
+        <div class="row">
+          <button id="btnFormat">Format</button>
+          <button id="btnMinify">Minify</button>
+          <button id="btnCopyJson">Copy</button>
+        </div>
+        <div id="jsonResult" class="result small"></div>
+      </section>
+
+      <section class="card">
+        <h2>Regex Tester</h2>
+        <label for="regexPattern">Pattern</label>
+        <input id="regexPattern" placeholder="\\bfix\\b" />
+        <label for="regexFlags">Flags</label>
+        <input id="regexFlags" placeholder="gim" value="g" />
+        <label for="regexText">Teks Uji</label>
+        <textarea id="regexText" placeholder="Paste log, stacktrace, atau teks apa pun..."></textarea>
+        <div class="row">
+          <button id="btnRegexRun">Run Regex</button>
+        </div>
+        <div id="regexResult" class="result small"></div>
+      </section>
+
+      <section class="card">
+        <h2>Epoch & Date Converter</h2>
+        <label for="epochInput">Epoch (detik atau milidetik)</label>
+        <input id="epochInput" placeholder="1715170000" />
+        <div class="row">
+          <button id="btnEpochToDate">Epoch → Date</button>
+        </div>
+        <label for="dateInput">Date ISO</label>
+        <input id="dateInput" placeholder="2026-05-08T19:30:00" />
+        <div class="row">
+          <button id="btnDateToEpoch">Date → Epoch</button>
+        </div>
+        <div id="epochResult" class="result small"></div>
+      </section>
+
+      <section class="card">
+        <h2>Hash Generator</h2>
+        <label for="hashInput">Teks input</label>
+        <textarea id="hashInput" placeholder="String rahasia / payload"></textarea>
+        <div class="row">
+          <button id="btnSha1">SHA-1</button>
+          <button id="btnSha256">SHA-256</button>
+        </div>
+        <div id="hashResult" class="result small"></div>
+      </section>
+
+      <section class="card" style="grid-column: 1 / -1;">
+        <h2>Command Scratchpad (auto-save lokal)</h2>
+        <label for="scratchpad">Catatan command cepat (git, docker, sql, dll)</label>
+        <textarea id="scratchpad" style="min-height: 180px;" placeholder="Contoh: git rebase -i HEAD~3"></textarea>
+        <div class="row">
+          <button id="btnSaveScratchpad">Simpan Sekarang</button>
+          <button id="btnClearScratchpad">Kosongkan</button>
+        </div>
+        <div id="scratchpadResult" class="result small"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function setText(id, text, klass) {
+      const el = $(id);
+      el.className = "result small " + (klass || "");
+      el.textContent = text;
+    }
+
+    $("btnFormat").addEventListener("click", () => {
+      try {
+        const value = JSON.parse($("jsonInput").value);
+        $("jsonInput").value = JSON.stringify(value, null, 2);
+        setText("jsonResult", "JSON valid dan sudah diformat.", "ok");
+      } catch (err) {
+        setText("jsonResult", "JSON tidak valid: " + err.message, "err");
+      }
+    });
+
+    $("btnMinify").addEventListener("click", () => {
+      try {
+        const value = JSON.parse($("jsonInput").value);
+        $("jsonInput").value = JSON.stringify(value);
+        setText("jsonResult", "JSON berhasil di-minify.", "ok");
+      } catch (err) {
+        setText("jsonResult", "JSON tidak valid: " + err.message, "err");
+      }
+    });
+
+    $("btnCopyJson").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText($("jsonInput").value);
+        setText("jsonResult", "JSON berhasil disalin.", "ok");
+      } catch {
+        setText("jsonResult", "Gagal menyalin, gunakan Ctrl+C manual.", "warn");
+      }
+    });
+
+    $("btnRegexRun").addEventListener("click", () => {
+      const pattern = $("regexPattern").value;
+      const flags = $("regexFlags").value;
+      const text = $("regexText").value;
+      try {
+        const re = new RegExp(pattern, flags);
+        const matches = [...text.matchAll(re)];
+        if (matches.length === 0) {
+          setText("regexResult", "Tidak ada match.", "warn");
+          return;
+        }
+        const lines = matches.slice(0, 20).map((m, i) => `#${i + 1} "${m[0]}" @ index ${m.index}`);
+        const more = matches.length > 20 ? `\n... ${matches.length - 20} match lain disembunyikan.` : "";
+        setText("regexResult", `Total match: ${matches.length}\n` + lines.join("\n") + more, "ok");
+      } catch (err) {
+        setText("regexResult", "Regex error: " + err.message, "err");
+      }
+    });
+
+    $("btnEpochToDate").addEventListener("click", () => {
+      const raw = $("epochInput").value.trim();
+      if (!raw || Number.isNaN(Number(raw))) {
+        setText("epochResult", "Masukkan angka epoch yang valid.", "err");
+        return;
+      }
+      let n = Number(raw);
+      if (raw.length <= 10) n *= 1000;
+      const d = new Date(n);
+      if (Number.isNaN(d.getTime())) {
+        setText("epochResult", "Epoch tidak bisa diparse.", "err");
+        return;
+      }
+      setText("epochResult", `ISO: ${d.toISOString()}\nLocale: ${d.toLocaleString()}`, "ok");
+    });
+
+    $("btnDateToEpoch").addEventListener("click", () => {
+      const d = new Date($("dateInput").value.trim());
+      if (Number.isNaN(d.getTime())) {
+        setText("epochResult", "Format tanggal tidak valid.", "err");
+        return;
+      }
+      setText(
+        "epochResult",
+        `Epoch detik: ${Math.floor(d.getTime() / 1000)}\nEpoch milidetik: ${d.getTime()}`,
+        "ok"
+      );
+    });
+
+    async function digest(algorithm, text) {
+      const data = new TextEncoder().encode(text);
+      const hashBuffer = await crypto.subtle.digest(algorithm, data);
+      const bytes = Array.from(new Uint8Array(hashBuffer));
+      return bytes.map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    async function doHash(algorithm) {
+      const text = $("hashInput").value;
+      if (!text) {
+        setText("hashResult", "Input hash kosong.", "warn");
+        return;
+      }
+      const hex = await digest(algorithm, text);
+      setText("hashResult", `${algorithm}: ${hex}`, "ok");
+    }
+
+    $("btnSha1").addEventListener("click", () => doHash("SHA-1"));
+    $("btnSha256").addEventListener("click", () => doHash("SHA-256"));
+
+    const scratchpadKey = "dev-daily-scratchpad-v1";
+    function saveScratchpad() {
+      localStorage.setItem(scratchpadKey, $("scratchpad").value);
+      setText("scratchpadResult", "Scratchpad tersimpan lokal di browser.", "ok");
+    }
+
+    $("btnSaveScratchpad").addEventListener("click", saveScratchpad);
+    $("btnClearScratchpad").addEventListener("click", () => {
+      $("scratchpad").value = "";
+      saveScratchpad();
+    });
+    $("scratchpad").addEventListener("input", () => {
+      clearTimeout(window._scratchpadTimer);
+      window._scratchpadTimer = setTimeout(saveScratchpad, 300);
+    });
+
+    $("scratchpad").value = localStorage.getItem(scratchpadKey) || "";
+    setText("scratchpadResult", "Siap dipakai. Data hanya tersimpan di browser lokal.", "small");
+  </script>
+</body>
+</html>

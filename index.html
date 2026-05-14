@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Tri Wicaksono Rusdiono</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: rgba(15, 23, 42, 0.72);
+      --surface-soft: rgba(30, 41, 59, 0.72);
+      --text: #e2e8f0;
+      --muted: #cbd5e1;
+      --line: rgba(148, 163, 184, 0.32);
+      --primary: #60a5fa;
+      --secondary: #22d3ee;
+      --heading: #dbeafe;
+      --section-heading: #bfdbfe;
+      --card-heading: #93c5fd;
+      --tag-text: #bae6fd;
+      --tag-bg: rgba(30, 41, 59, 0.85);
+      --tag-border: rgba(125, 211, 252, 0.35);
+      --nav-active-text: #f8fafc;
+      --nav-active-bg: rgba(59, 130, 246, 0.55);
+      --nav-active-ring: rgba(125, 211, 252, 0.3);
+      --btn-primary-text: #ffffff;
+      --btn-secondary-bg: rgba(15, 23, 42, 0.72);
+      --btn-secondary-text: #67e8f9;
+      --btn-secondary-border: rgba(103, 232, 249, 0.35);
+      --photo-border: #bfdbfe;
+      --photo-bg: #ffffff;
+      --overlay: rgba(2, 6, 23, 0.58);
+      --header-bg: rgba(15, 23, 42, 0.78);
+      --footer-bg: rgba(2, 6, 23, 0.35);
+      --link: #7dd3fc;
+      --link-hover: #bae6fd;
+    }
+
+    body.light-theme {
+      --bg: #e2e8f0;
+      --surface: rgba(255, 255, 255, 0.75);
+      --surface-soft: rgba(241, 245, 249, 0.9);
+      --text: #0f172a;
+      --muted: #334155;
+      --line: rgba(71, 85, 105, 0.28);
+      --primary: #1d4ed8;
+      --secondary: #0891b2;
+      --heading: #1e3a8a;
+      --section-heading: #1d4ed8;
+      --card-heading: #1e40af;
+      --tag-text: #0f172a;
+      --tag-bg: rgba(224, 242, 254, 0.9);
+      --tag-border: rgba(56, 189, 248, 0.45);
+      --nav-active-text: #ffffff;
+      --nav-active-bg: rgba(29, 78, 216, 0.8);
+      --nav-active-ring: rgba(59, 130, 246, 0.4);
+      --btn-primary-text: #ffffff;
+      --btn-secondary-bg: rgba(224, 242, 254, 0.95);
+      --btn-secondary-text: #0c4a6e;
+      --btn-secondary-border: rgba(14, 165, 233, 0.45);
+      --photo-border: #93c5fd;
+      --photo-bg: #ffffff;
+      --overlay: rgba(241, 245, 249, 0.62);
+      --header-bg: rgba(255, 255, 255, 0.82);
+      --footer-bg: rgba(255, 255, 255, 0.42);
+      --link: #0369a1;
+      --link-hover: #0c4a6e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -3;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background: var(--overlay);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.24), transparent 36%),
+        radial-gradient(circle at 80% 25%, rgba(34, 211, 238, 0.2), transparent 34%),
+        radial-gradient(circle at 70% 85%, rgba(14, 165, 233, 0.16), transparent 30%);
+    }
+
+    .container {
+      width: min(1080px, 92%);
+      margin: 0 auto;
+    }
+
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      z-index: 90;
+      transition: width 0.15s linear;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      gap: 10px;
+    }
+
+    .logo {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      color: var(--text);
+      padding: 7px 11px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      transition: 0.25s ease;
+    }
+
+    .menu a:hover {
+      background: var(--surface-soft);
+      color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .menu a.active {
+      color: var(--nav-active-text);
+      background: var(--nav-active-bg);
+      box-shadow: inset 0 0 0 1px var(--nav-active-ring);
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 7px 11px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      transition: 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      align-items: center;
+      gap: 28px;
+      padding: 42px 0 26px;
+    }
+
+    .photo-wrap {
+      width: 180px;
+      height: 240px;
+      border-radius: 14px;
+      border: 3px solid var(--photo-border);
+      overflow: hidden;
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.15);
+      background: var(--photo-bg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-wrap:hover {
+      transform: translateY(-5px) rotate(-0.8deg);
+      box-shadow: 0 18px 35px rgba(37, 99, 235, 0.2);
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      margin-bottom: 8px;
+      color: var(--heading);
+    }
+
+    .subtitle {
+      color: var(--secondary);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .bio {
+      color: var(--muted);
+    }
+
+    .stats {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .stat-item {
+      padding: 12px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(7px);
+    }
+
+    .stat-number {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--secondary);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.83rem;
+      margin-top: 4px;
+    }
+
+    section {
+      padding: 14px 0 20px;
+    }
+
+    .section-title {
+      margin-bottom: 12px;
+      color: var(--section-heading);
+      font-size: 1.2rem;
+      border-left: 4px solid var(--secondary);
+      padding-left: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 10px;
+      padding-left: 22px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(var(--secondary), rgba(96, 165, 250, 0.25));
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -27px;
+      top: 22px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--secondary);
+      box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.2);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(2, 6, 23, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      backdrop-filter: blur(7px);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.12);
+    }
+
+    .card h3 {
+      margin-bottom: 8px;
+      color: var(--card-heading);
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .list {
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      margin-bottom: 8px;
+      padding-left: 16px;
+    }
+
+    .list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--secondary);
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 9px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--tag-border);
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 9px 14px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--btn-primary-text);
+      box-shadow: 0 10px 22px rgba(37, 99, 235, 0.24);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      border: 1px solid var(--btn-secondary-border);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.02);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 14px 28px rgba(37, 99, 235, 0.3);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .floating-actions {
+      position: fixed;
+      right: 16px;
+      bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 40;
+    }
+
+    .float-btn {
+      width: 52px;
+      height: 52px;
+      border: none;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .float-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 16px 28px rgba(15, 23, 42, 0.28);
+    }
+
+    .float-wa {
+      background: #25d366;
+      animation: pulse 1.9s infinite;
+    }
+
+    .float-portfolio {
+      background: linear-gradient(145deg, #2563eb, #0891b2);
+      animation: pulse-portfolio 1.9s infinite;
+    }
+
+    .float-top {
+      background: var(--primary);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+    }
+
+    .float-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
+      }
+      70% {
+        box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+
+    @keyframes pulse-portfolio {
+      0% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.5);
+      }
+      70% {
+        box-shadow: 0 0 0 14px rgba(56, 189, 248, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+      }
+    }
+
+    footer {
+      margin-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+      padding: 16px 0 24px;
+      font-size: 0.9rem;
+      background: var(--footer-bg);
+    }
+
+    a {
+      color: var(--link);
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-wrap {
+        margin: 0 auto;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      nav {
+        flex-direction: column;
+      }
+
+      .menu {
+        justify-content: center;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .floating-actions {
+        right: 12px;
+        bottom: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <video class="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="sisipan/background.mp4" type="video/mp4" />
+  </video>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">Tri Wicaksono Rusdiono</div>
+        <div class="menu">
+          <a href="#home">Home</a>
+          <a href="#tentang">Tentang</a>
+          <a href="#pengalaman">Pengalaman</a>
+          <a href="#pendidikan">Pendidikan</a>
+          <a href="#keterampilan">Keterampilan</a>
+          <a href="#kontak">Kontak</a>
+          <a href="portfolio.html">Portofolio</a>
+          <button class="theme-toggle" id="themeToggle" type="button">🌙 Dark</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="home">
+      <div class="photo-wrap">
+        <img src="fotoku.jpeg" alt="Foto profil Tri Wicaksono Rusdiono" />
+      </div>
+      <div class="hero-text">
+        <h1>Tri Wicaksono Rusdiono</h1>
+        <div class="subtitle">🛠️ IT Support Specialist | Engineering On Site</div>
+        <p class="bio">
+          Seorang spesialis IT Support yang mampu mengelola dan memecahkan masalah jaringan.
+          Mampu dalam Mikrotik dan instalasi komputer, dengan fokus pada keandalan jaringan
+          dan pelayanan teknis.
+        </p>
+        <div class="quick-links">
+          <a class="btn btn-primary" href="portfolio.html">📁 Lihat Portofolio</a>
+          <a class="btn btn-secondary" href="sisipan/CV Tri Wicaksono Rusdiono.pdf">📄 Download CV</a>
+        </div>
+        <div class="stats reveal">
+          <div class="stat-item">
+            <span class="stat-number" data-target="3">0</span>
+            <span class="stat-label">Tahun Pengalaman</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tentang" class="reveal">
+      <h2 class="section-title">👤 Tentang Saya</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Data Diri</h3>
+          <ul class="list">
+            <li>Nama: Tri Wicaksono Rusdiono</li>
+            <li>Umur: 22 tahun</li>
+            <li>Jenis Kelamin: Pria</li>
+            <li>Hobi: Bermain bola, game, baca buku, dan suka mengulik hal baru.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Ringkasan Profil</h3>
+          <p>
+            Berpengalaman menangani operasional jaringan, troubleshooting, serta koordinasi teknis
+            di lapangan. Terbiasa bekerja dengan standar layanan publik dan kebutuhan stabilitas
+            jaringan yang tinggi.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="pengalaman" class="reveal">
+      <h2 class="section-title">💼 Pengalaman Kerja</h2>
+      <div class="timeline">
+        <article class="card timeline-item">
+          <h3>Engineering On Site - Telkom Surakarta</h3>
+          <p><strong>April 2023 - Sekarang</strong></p>
+          <ul class="list">
+            <li>Mengawasi jaringan Telkom yang berada di OPD Pemkot Surakarta.</li>
+            <li>Membantu koordinasi antara teknisi dengan pelanggan Pemkot Surakarta.</li>
+            <li>Melakukan pengecekan dan perbaikan kendala jaringan pelanggan.</li>
+          </ul>
+        </article>
+        <article class="card timeline-item">
+          <h3>Pelatihan Kerja Lapangan - Pemkot Surakarta</h3>
+          <p><strong>Agustus 2021 - Desember 2021</strong></p>
+          <ul class="list">
+            <li>Mensupport engineering on site dalam pengecekan lapangan.</li>
+            <li>Membantu penyusunan laporan pekerjaan.</li>
+            <li>Membantu pengawalan jaringan temporary untuk event Pemkot Surakarta.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="pendidikan" class="reveal">
+      <h2 class="section-title">🎓 Pendidikan</h2>
+      <div class="grid">
+        <article class="card">
+          <ul class="list">
+            <li>SD Negeri Dawung Tengah</li>
+            <li>SMP Negeri 12 Surakarta</li>
+            <li>SMK Negeri 2 Surakarta</li>
+            <li>Tiga Serangkai University (on going progress)</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="keterampilan" class="reveal">
+      <h2 class="section-title">⚙️ Keterampilan</h2>
+      <div class="card">
+        <div class="tag-list">
+          <span class="tag">Pengoperasian Mikrotik</span>
+          <span class="tag">Instalasi dan Perawatan Komputer</span>
+          <span class="tag">Microsoft Office</span>
+          <span class="tag">Pemetaan Jaringan</span>
+          <span class="tag">Troubleshooting Jaringan</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontak" class="reveal">
+      <h2 class="section-title">📞 Kontak</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Alamat</h3>
+          <p>Jl. Kahuripan Barat II, Sumber</p>
+          <p>Kota Surakarta, Jawa Tengah 57138</p>
+        </article>
+        <article class="card">
+          <h3>Informasi Kontak</h3>
+          <p>📧 <a href="mailto:wicakrz2004@gmail.com">wicakrz2004@gmail.com</a></p>
+          <p>📱 <a href="tel:+6281327362254">0813-2736-2254</a></p>
+          <p>📸 <a href="https://www.instagram.com/ranahpati?igsh=d2hvMXp5MXJ0Z2d3" target="_blank" rel="noopener noreferrer">Instagram @ranahpati</a></p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Profil Tri Wicaksono Rusdiono.
+  </footer>
+
+  <div class="floating-actions">
+    <a
+      class="float-btn float-portfolio"
+      href="portfolio.html"
+      aria-label="Buka halaman portofolio"
+      title="Portofolio"
+    >📁</a>
+    <a
+      class="float-btn float-wa"
+      href="https://wa.me/6281327362254"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chat WhatsApp"
+      title="Chat WhatsApp"
+    >💬</a>
+    <button class="float-btn float-top" id="backToTop" aria-label="Kembali ke atas" title="Kembali ke atas">↑</button>
+  </div>
+
+  <script>
+    const bgVideo = document.querySelector(".bg-video");
+    const backToTop = document.getElementById("backToTop");
+    const scrollProgress = document.getElementById("scrollProgress");
+    const themeToggle = document.getElementById("themeToggle");
+    const revealItems = document.querySelectorAll(".reveal");
+    const statNumbers = document.querySelectorAll(".stat-number");
+    const sectionIds = ["home", "tentang", "pengalaman", "pendidikan", "keterampilan", "kontak"];
+    const navLinks = [...document.querySelectorAll('.menu a[href^="#"]')];
+    let statAnimated = false;
+
+    const toggleBackToTop = () => {
+      if (window.scrollY > 240) {
+        backToTop.classList.add("visible");
+      } else {
+        backToTop.classList.remove("visible");
+      }
+    };
+
+    const updateScrollProgress = () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      scrollProgress.style.width = `${Math.min(progress, 100)}%`;
+    };
+
+    const updateActiveNav = () => {
+      let current = "home";
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+        const top = section.offsetTop - 120;
+        if (window.scrollY >= top) current = id;
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+      });
+    };
+
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.86;
+      revealItems.forEach((item) => {
+        if (item.getBoundingClientRect().top < trigger) {
+          item.classList.add("in-view");
+        }
+      });
+    };
+
+    const animateStats = () => {
+      const firstStat = statNumbers[0];
+      if (!firstStat || statAnimated) return;
+      const statsTop = firstStat.getBoundingClientRect().top;
+      if (statsTop > window.innerHeight * 0.9) return;
+
+      statAnimated = true;
+      statNumbers.forEach((stat) => {
+        const target = Number(stat.dataset.target || 0);
+        let start = 0;
+        const duration = 1300;
+        const stepTime = 20;
+        const increment = Math.max(1, Math.ceil(target / (duration / stepTime)));
+
+        const timer = setInterval(() => {
+          start += increment;
+          if (start >= target) {
+            stat.textContent = `${target}`;
+            clearInterval(timer);
+          } else {
+            stat.textContent = `${start}`;
+          }
+        }, stepTime);
+      });
+    };
+
+    const savedTheme = localStorage.getItem("theme-mode");
+    if (savedTheme === "light") {
+      document.body.classList.add("light-theme");
+      themeToggle.textContent = "☀️ Light";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light-theme");
+      const isLight = document.body.classList.contains("light-theme");
+      themeToggle.textContent = isLight ? "☀️ Light" : "🌙 Dark";
+      localStorage.setItem("theme-mode", isLight ? "light" : "dark");
+    });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Fallback loop: jaga video tetap berputar jika browser menghentikan autoplay.
+    bgVideo.addEventListener("ended", () => {
+      bgVideo.currentTime = 0;
+      bgVideo.play().catch(() => {});
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) {
+        bgVideo.play().catch(() => {});
+      }
+    });
+
+    window.addEventListener("scroll", () => {
+      toggleBackToTop();
+      updateScrollProgress();
+      updateActiveNav();
+      revealOnScroll();
+      animateStats();
+    });
+
+    toggleBackToTop();
+    updateScrollProgress();
+    updateActiveNav();
+    revealOnScroll();
+    animateStats();
+  </script>
+</body>
+</html>
