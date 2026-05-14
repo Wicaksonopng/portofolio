@@ -3,6 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Profil profesional Tri Wicaksono Rusdiono, spesialis IT Support dan engineering on-site dengan pengalaman jaringan dan troubleshooting." />
+  <meta property="og:title" content="Profil Tri Wicaksono Rusdiono" />
+  <meta property="og:description" content="IT Support Specialist dan Engineering On Site dengan fokus pada keandalan jaringan dan layanan teknis." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="fotoku.jpeg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="fotoku.jpeg" type="image/jpeg" />
   <title>Profil Tri Wicaksono Rusdiono</title>
   <style>
     :root {
@@ -90,6 +97,22 @@
       height: 100%;
       object-fit: cover;
       z-index: -3;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .bg-video {
+        display: none;
+      }
     }
 
     body::before {
@@ -566,7 +589,7 @@
 <body>
   <div class="scroll-progress" id="scrollProgress"></div>
 
-  <video class="bg-video" autoplay muted loop playsinline preload="auto">
+  <video class="bg-video" autoplay muted loop playsinline preload="auto" poster="background portofolio.png">
     <source src="sisipan/background.mp4" type="video/mp4" />
   </video>
 
@@ -603,12 +626,16 @@
         </p>
         <div class="quick-links">
           <a class="btn btn-primary" href="portfolio.html">📁 Lihat Portofolio</a>
-          <a class="btn btn-secondary" href="sisipan/CV Tri Wicaksono Rusdiono.pdf">📄 Download CV</a>
+          <a class="btn btn-secondary" href="sisipan/CV Tri Wicaksono Rusdiono.pdf" download="CV-Tri-Wicaksono-Rusdiono.pdf">📄 Download CV</a>
         </div>
         <div class="stats reveal">
           <div class="stat-item">
             <span class="stat-number" data-target="3">0</span>
             <span class="stat-label">Tahun Pengalaman</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="5">0</span>
+            <span class="stat-label">Proyek / Dukungan Lapangan</span>
           </div>
         </div>
       </div>
@@ -661,6 +688,19 @@
       </div>
     </section>
 
+    <section id="proyek" class="reveal">
+      <h2 class="section-title">🚀 Proyek & Portofolio</h2>
+      <div class="card">
+        <p>
+          Terlibat dalam instalasi jaringan, setup Mikrotik, dan dukungan teknis on-site untuk pemerintahan serta event publik.
+          Lihat detail proyek dan dokumentasi lebih lengkap di halaman portofolio.
+        </p>
+        <div class="quick-links" style="margin-top: 14px;">
+          <a class="btn btn-primary" href="portfolio.html">Lihat Portofolio Lengkap</a>
+        </div>
+      </div>
+    </section>
+
     <section id="pendidikan" class="reveal">
       <h2 class="section-title">🎓 Pendidikan</h2>
       <div class="grid">
@@ -684,7 +724,23 @@
           <span class="tag">Microsoft Office</span>
           <span class="tag">Pemetaan Jaringan</span>
           <span class="tag">Troubleshooting Jaringan</span>
+          <span class="tag">Koordinasi Tim Lapangan</span>
+          <span class="tag">Pelayanan Teknis Pelanggan</span>
         </div>
+      </div>
+    </section>
+
+    <section id="sertifikasi" class="reveal">
+      <h2 class="section-title">🏅 Sertifikasi</h2>
+      <div class="grid">
+        <article class="card">
+          <ul class="list">
+            <li>TOEFL LIA</li>
+            <li>Sololearn Introduction to SQL</li>
+            <li>Sololearn SQL Intermediate</li>
+            <li>SK PJBL SMP 9</li>
+          </ul>
+        </article>
       </div>
     </section>
 
